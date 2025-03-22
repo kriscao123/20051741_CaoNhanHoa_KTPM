@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  database:
+    image: mysql:8.0.37-debian
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: identity_services
+    ports:
+      - "3306:3306"
+
+  app:
+    build: .
+    depends_on:
+      - database
+    ports:
+      - "8080:8080"
