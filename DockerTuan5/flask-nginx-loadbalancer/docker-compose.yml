@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  backend1:
+    build: ./backend
+    container_name: backend1
+    networks:
+      - flask_network
+
+  backend2:
+    build: ./backend
+    container_name: backend2
+    networks:
+      - flask_network
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend1
+      - backend2
+    networks:
+      - flask_network
+
+networks:
+  flask_network:
+    driver: bridge
